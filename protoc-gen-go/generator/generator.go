@@ -2105,6 +2105,16 @@ func (g *Generator) generateMessage(message *Descriptor) {
 			})
 		}
 
+		// Generate a naive setter.
+		// I don't pretend to understand everything I am eliding by this simplicity.
+		g.P("func (m *", ccTypeName, ") Set"+fname+"(v "+star+typename+") {")
+		g.In()
+		g.P("m." + fname + " = v")
+		g.Out()
+		g.P("}")
+		g.P()
+
+		// Generate getter.
 		g.P("func (m *", ccTypeName, ") "+mname+"() "+typename+" {")
 		g.In()
 		def, hasDef := defNames[field]
